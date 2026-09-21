@@ -4,8 +4,13 @@ import { Header } from "./Header";
 import { SearchBar } from "./SearchBar";
 import { TrustBar } from "./TrustBar";
 import { WaveDivider } from "./WaveDivider";
+import { WaveRevealTitle } from "./WaveRevealTitle";
 
-export function Hero() {
+type HeroProps = {
+  isReady?: boolean;
+};
+
+export function Hero({ isReady = true }: HeroProps) {
   return (
     <>
       <section className="relative flex h-dvh flex-col overflow-hidden bg-blue-950">
@@ -17,17 +22,21 @@ export function Hero() {
           sizes="100vw"
           className="object-cover object-center"
         />
-        <div className="absolute inset-0 bg-linear-to-t from-white via-white/70 to-transparent" />
+        <div className="absolute inset-0 z-5 bg-white/50" />
 
-        <Reveal className="relative z-10 flex flex-1 flex-col">
-          <RevealItem>
-            <Header />
-          </RevealItem>
+        <Header isReady={isReady} />
 
+        <Reveal
+          className="relative z-10 flex flex-1 flex-col"
+          shouldAnimate={isReady}
+        >
           <div className="flex flex-1 flex-col items-center justify-center px-6 pb-8 text-center">
             <RevealItem>
-              <h1 className="max-w-4xl text-5xl font-bold leading-[1.05] text-blue-950 md:text-7xl">
-                Sua viagem ao Santuário, em boas mãos
+              <h1 className="max-w-6xl text-5xl font-bold leading-[1.05] text-blue-950 md:text-7xl">
+                <WaveRevealTitle
+                  text="Sua viagem ao Santuário, em boas mãos."
+                  shouldAnimate={isReady}
+                />
               </h1>
             </RevealItem>
 

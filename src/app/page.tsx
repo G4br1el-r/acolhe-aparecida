@@ -1,11 +1,9 @@
-import { Hero } from "@/components/Modules/Home/Hero";
-import { ProfileSection } from "@/components/Modules/Home/ProfileSection";
+import { HomeContent } from "@/components/Modules/Home/HomeContent";
 
 export default function Home() {
   return (
     <main>
-      <Hero />
-      <ProfileSection />
+      <HomeContent />
     </main>
   );
 }

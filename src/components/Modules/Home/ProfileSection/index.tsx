@@ -1,5 +1,7 @@
 import { ArrowRight, PlayCircle } from "lucide-react";
 import { Reveal, RevealItem } from "@/components/ui/reveal";
+import { MAP_HIGHLIGHT_ACCOMMODATION } from "@/constants/Modules/Home/accommodations";
+import { HotelCard } from "../HotelCard";
 import { MapHighlight } from "./MapHighlight";
 import { ProfileSelector } from "./ProfileSelector";
 import { TrustPoints } from "./TrustPoints";
@@ -10,6 +12,10 @@ export function ProfileSection() {
       <MapHighlight />
 
       <Reveal trigger="inView" className="relative z-10 mx-auto max-w-7xl">
+        <RevealItem className="absolute right-4 top-20 z-20 hidden lg:block xl:right-8 xl:top-24">
+          <HotelCard accommodation={MAP_HIGHLIGHT_ACCOMMODATION} variant="sm" />
+        </RevealItem>
+
         <div className="max-w-lg">
           <RevealItem>
             <p className="text-xs font-semibold uppercase tracking-wide text-blue-900/60">

@@ -28,14 +28,14 @@ export function DateField({
 }: DateFieldProps) {
   return (
     <Popover>
-      <PopoverTrigger className="flex flex-1 cursor-pointer flex-col gap-0.5 rounded-full px-4 py-2 text-left outline-none transition-colors hover:bg-black/3 focus-visible:ring-2 focus-visible:ring-blue-600">
-        <span className="text-xs font-semibold uppercase tracking-wide text-blue-900/60">
+      <PopoverTrigger className="flex w-full cursor-pointer flex-col gap-0.5 rounded-full px-4 py-2 text-left outline-none transition-colors hover:bg-black/3 focus-visible:ring-2 focus-visible:ring-blue-600">
+        <span className="truncate text-xs font-semibold uppercase tracking-wide text-blue-900/60">
           {label}
         </span>
         <span
-          className={
-            date ? "text-sm text-blue-950" : "text-sm text-blue-950/50"
-          }
+          className={`truncate text-sm ${
+            date ? "text-blue-950" : "text-blue-950/50"
+          }`}
         >
           {date
             ? format(date, DATE_LABEL_FORMAT, { locale: ptBR })
@@ -43,7 +43,12 @@ export function DateField({
         </span>
       </PopoverTrigger>
 
-      <PopoverContent className="w-auto p-0">
+      <PopoverContent
+        className="w-auto p-0"
+        side="bottom"
+        align="start"
+        collisionAvoidance={{ side: "none", fallbackAxisSide: "none" }}
+      >
         <Calendar
           mode="single"
           selected={date}

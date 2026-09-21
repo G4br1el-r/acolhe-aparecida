@@ -1,4 +1,9 @@
+"use client";
+
+import { motion, useReducedMotion } from "motion/react";
+import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 const NAV_LINKS = [
   { label: "Hospedagens", href: "/hospedagens" },
@@ -7,32 +12,63 @@ const NAV_LINKS = [
   { label: "Suporte", href: "/suporte" },
 ];
 
-export function Header() {
+const ENTRANCE_DURATION_IN_SECONDS = 0.5;
+const ENTRANCE_DELAY_IN_SECONDS = 0.1;
+const SCROLL_THRESHOLD_IN_PX = 8;
+
+type HeaderProps = {
+  isReady?: boolean;
+};
+
+export function Header({ isReady = true }: HeaderProps) {
+  const shouldReduceMotion = useReducedMotion();
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > SCROLL_THRESHOLD_IN_PX);
+    };
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <header className="relative z-20 flex items-center justify-end px-6 py-5 md:px-10">
+    <motion.header
+      initial={{ opacity: 0, y: shouldReduceMotion ? 0 : -16 }}
+      animate={
+        isReady
+          ? { opacity: 1, y: 0 }
+          : { opacity: 0, y: shouldReduceMotion ? 0 : -16 }
+      }
+      transition={{
+        duration: shouldReduceMotion ? 0 : ENTRANCE_DURATION_IN_SECONDS,
+        delay: shouldReduceMotion ? 0 : ENTRANCE_DELAY_IN_SECONDS,
+        ease: "easeOut",
+      }}
+      className={`fixed inset-x-0 top-0 z-50 flex items-center justify-end px-6 py-5 transition-colors duration-300 md:px-10 ${
+        isScrolled ? "bg-white/70 shadow-sm backdrop-blur-sm" : "bg-transparent"
+      }`}
+    >
       <Link
         href="/"
-        className="absolute left-6 flex cursor-pointer items-center gap-3 rounded-full bg-white/40 px-4 py-2 shadow-sm ring-1 ring-white/40 backdrop-blur-sm transition-colors hover:bg-white/50 md:left-10"
+        className="absolute left-6 flex cursor-pointer items-center rounded-full bg-white p-2 shadow-sm ring-1 ring-black/5 transition-opacity hover:opacity-80 md:left-10"
       >
-        <span className="flex h-9 w-9 items-center justify-center rounded-full bg-blue-900 text-sm font-semibold text-white">
-          AA
-        </span>
-        <span className="flex flex-col leading-tight">
-          <span className="text-sm font-semibold text-blue-950">
-            Acolher Aparecida
-          </span>
-          <span className="text-xs text-blue-900/70">
-            Sua viagem ao Santuário
-          </span>
-        </span>
+        <Image
+          src="/logo.png"
+          alt="Acolher Aparecida"
+          width={44}
+          height={44}
+          className="h-11 w-11 object-contain"
+        />
       </Link>
 
-      <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-2 rounded-full bg-white/40 px-2 py-2 shadow-sm ring-1 ring-white/40 backdrop-blur-sm lg:flex">
+      <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-2 rounded-full bg-white px-2 py-2 shadow-sm ring-1 ring-black/5 lg:flex">
         {NAV_LINKS.map((link) => (
           <Link
             key={link.href}
             href={link.href}
-            className="cursor-pointer rounded-full px-4 py-2 text-sm font-medium text-blue-950 transition-colors hover:bg-white/60"
+            className="cursor-pointer rounded-full px-4 py-2 text-sm font-medium text-blue-950/80 transition-colors hover:text-blue-950"
           >
             {link.label}
           </Link>
@@ -41,10 +77,10 @@ export function Header() {
 
       <Link
         href="/entrar"
-        className="cursor-pointer rounded-full bg-white/40 px-5 py-2.5 text-sm font-semibold text-blue-950 shadow-sm ring-1 ring-white/40 backdrop-blur-sm transition-colors hover:bg-white/50"
+        className="cursor-pointer rounded-full bg-blue-950 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-blue-900"
       >
         Entrar
       </Link>
-    </header>
+    </motion.header>
   );
 }

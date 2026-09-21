@@ -10,27 +10,33 @@ export function SearchBar() {
   const [checkOutDate, setCheckOutDate] = useState<Date | undefined>();
 
   return (
-    <div className="flex w-full flex-col gap-2 rounded-3xl bg-white/95 p-2 shadow-xl backdrop-blur-sm md:flex-row md:items-center md:gap-0 md:rounded-full">
-      <DateField
-        label="Check-in"
-        placeholder="Adicionar data"
-        date={checkInDate}
-        onSelectDate={setCheckInDate}
-      />
+    <div className="flex w-full flex-col gap-2 rounded-3xl bg-white p-2 shadow-xl md:flex-row md:items-center md:gap-0 md:rounded-full">
+      <div className="md:w-0 md:flex-[1.8]">
+        <DateField
+          label="Check-in"
+          placeholder="Adicionar data"
+          date={checkInDate}
+          onSelectDate={setCheckInDate}
+        />
+      </div>
 
       <div className="hidden h-7 w-px bg-blue-950/10 md:block" />
 
-      <DateField
-        label="Check-out"
-        placeholder="Adicionar data"
-        date={checkOutDate}
-        onSelectDate={setCheckOutDate}
-        disabledBefore={checkInDate}
-      />
+      <div className="md:w-0 md:flex-[1.8]">
+        <DateField
+          label="Check-out"
+          placeholder="Adicionar data"
+          date={checkOutDate}
+          onSelectDate={setCheckOutDate}
+          disabledBefore={checkInDate}
+        />
+      </div>
 
       <div className="hidden h-7 w-px bg-blue-950/10 md:block" />
 
-      <GuestsField />
+      <div className="md:flex-[2.5]">
+        <GuestsField />
+      </div>
 
       <button
         type="button"
