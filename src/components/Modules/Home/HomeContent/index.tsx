@@ -15,7 +15,7 @@ export function HomeContent() {
       {isSplashVisible && (
         <SplashScreen onFinish={() => setIsSplashVisible(false)} />
       )}
-      <Hero />
+      <Hero isReady={!isSplashVisible} />
       <ProfileSection />
       <HospedagensSection />
       <CtaSection />
