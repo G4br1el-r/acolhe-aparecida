@@ -47,7 +47,7 @@ export function ProfileSelector() {
   }
 
   return (
-    <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+    <div className="flex flex-col gap-3 min-[390px]:grid min-[390px]:grid-cols-2 sm:grid-cols-3">
       {TRAVELER_PROFILES.map((profile) => {
         const isSelected = selectedProfileIds.has(profile.id);
         const Icon = profile.icon;

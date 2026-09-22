@@ -2,6 +2,7 @@
 
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
+import { useState } from "react";
 import { Calendar } from "@/components/ui/calendar";
 import {
   Popover,
@@ -26,9 +27,11 @@ export function DateField({
   onSelectDate,
   disabledBefore,
 }: DateFieldProps) {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <Popover>
-      <PopoverTrigger className="flex w-full cursor-pointer flex-col gap-0.5 rounded-full px-4 py-2 text-left outline-none transition-colors hover:bg-black/3 focus-visible:ring-2 focus-visible:ring-blue-600">
+    <Popover open={isOpen} onOpenChange={setIsOpen}>
+      <PopoverTrigger className="flex w-full cursor-pointer flex-col gap-0.5 rounded-full px-4 py-1.5 text-left outline-none transition-colors hover:bg-black/3 focus-visible:ring-2 focus-visible:ring-blue-600">
         <span className="truncate text-xs font-semibold uppercase tracking-wide text-blue-900/60">
           {label}
         </span>
@@ -52,7 +55,11 @@ export function DateField({
         <Calendar
           mode="single"
           selected={date}
-          onSelect={onSelectDate}
+          defaultMonth={date ?? disabledBefore}
+          onSelect={(selectedDate) => {
+            onSelectDate(selectedDate);
+            setIsOpen(false);
+          }}
           locale={ptBR}
           disabled={disabledBefore ? { before: disabledBefore } : undefined}
         />

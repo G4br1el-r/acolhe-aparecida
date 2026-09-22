@@ -38,7 +38,7 @@ export function GuestsField() {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="flex w-full cursor-pointer items-center justify-between gap-2 rounded-full px-4 py-2 text-left outline-none transition-colors hover:bg-black/3 focus-visible:ring-2 focus-visible:ring-blue-600">
+      <DropdownMenuTrigger className="flex w-full cursor-pointer items-center justify-between gap-2 rounded-full px-4 py-1.5 text-left outline-none transition-colors hover:bg-black/3 focus-visible:ring-2 focus-visible:ring-blue-600">
         <span className="flex min-w-0 flex-col gap-0.5">
           <span className="text-xs font-semibold uppercase tracking-wide text-blue-900/60">
             Hóspedes

@@ -1,4 +1,4 @@
-import { ArrowRight, PlayCircle } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Reveal, RevealItem } from "@/components/ui/reveal";
 import { MAP_HIGHLIGHT_ACCOMMODATION } from "@/constants/Modules/Home/accommodations";
 import { HotelCard } from "../HotelCard";
@@ -51,14 +51,6 @@ export function ProfileSection() {
             >
               Ver hospedagens para o meu perfil
               <ArrowRight className="h-4 w-4" />
-            </button>
-
-            <button
-              type="button"
-              className="flex cursor-pointer items-center gap-2 rounded-full px-2 py-1 text-sm font-semibold text-blue-900 transition-colors hover:bg-blue-50 hover:text-blue-950"
-            >
-              Como funciona?
-              <PlayCircle className="h-4 w-4" />
             </button>
           </RevealItem>
         </div>

@@ -1,9 +1,9 @@
 "use client";
 
-import { Accessibility, Heart, MapPin, Star } from "lucide-react";
+import { Accessibility, MapPin, Star } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
-import { useState } from "react";
+import Link from "next/link";
 import type { Accommodation } from "@/constants/Modules/Home/accommodations";
 import {
   AMENITIES,
@@ -11,8 +11,12 @@ import {
   ROOM_CAPACITY_ICON,
   ROOM_COUNT_ICON,
 } from "@/constants/Modules/Home/amenities";
+import { FavoriteButton } from "./FavoriteButton";
 
 const HOVER_SCALE = 1.05;
+const TAP_SCALE = 0.97;
+const TAP_SPRING_STIFFNESS = 400;
+const TAP_SPRING_DAMPING = 28;
 const IMAGE_HOVER_SCALE = 1.08;
 const IMAGE_HOVER_DURATION_IN_SECONDS = 0.5;
 
@@ -22,7 +26,6 @@ type HotelCardProps = {
 };
 
 export function HotelCard({ accommodation, variant = "lg" }: HotelCardProps) {
-  const [isFavorited, setIsFavorited] = useState(false);
   const shouldReduceMotion = useReducedMotion();
 
   const isCompact = variant === "sm";
@@ -31,11 +34,22 @@ export function HotelCard({ accommodation, variant = "lg" }: HotelCardProps) {
   return (
     <motion.div
       whileHover={{ scale: shouldReduceMotion ? 1 : HOVER_SCALE }}
+      whileTap={{ scale: shouldReduceMotion ? 1 : TAP_SCALE }}
+      transition={{
+        type: "spring",
+        stiffness: TAP_SPRING_STIFFNESS,
+        damping: TAP_SPRING_DAMPING,
+      }}
       style={{ willChange: "transform" }}
-      className={`group flex cursor-pointer flex-col overflow-hidden rounded-2xl bg-white shadow-lg ring-1 ring-blue-950/5 transition-shadow duration-300 hover:shadow-2xl ${
+      className={`group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl bg-white shadow-lg ring-1 ring-blue-950/5 transition-shadow duration-300 hover:shadow-2xl focus-within:ring-2 focus-within:ring-blue-900 ${
         isCompact ? "w-64" : "h-full w-full"
       }`}
     >
+      <Link
+        href={`/hospedagens/${accommodation.slug}`}
+        aria-label={`Ver ${accommodation.name}`}
+        className="absolute inset-0 z-20 rounded-2xl focus:outline-none"
+      />
       <div className="relative aspect-4/3 w-full overflow-hidden">
         <motion.div
           className="h-full w-full"
@@ -61,21 +75,12 @@ export function HotelCard({ accommodation, variant = "lg" }: HotelCardProps) {
           </span>
         )}
 
-        <button
-          type="button"
-          onClick={() => setIsFavorited((current) => !current)}
-          aria-pressed={isFavorited}
-          aria-label="Favoritar hospedagem"
-          className="absolute right-2 top-2 z-10 flex h-7 w-7 cursor-pointer items-center justify-center rounded-full bg-white/90 text-blue-950 shadow-sm transition-colors hover:bg-white"
-        >
-          <Heart
-            className={
-              isFavorited
-                ? "h-3.5 w-3.5 fill-blue-900 text-blue-900"
-                : "h-3.5 w-3.5"
-            }
+        <div className="absolute right-2 top-2 z-30">
+          <FavoriteButton
+            isCompact={isCompact}
+            accommodationName={accommodation.name}
           />
-        </button>
+        </div>
       </div>
 
       <div className={`flex flex-1 flex-col ${isCompact ? "p-3" : "p-4"}`}>

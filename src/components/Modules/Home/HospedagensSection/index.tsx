@@ -1,6 +1,10 @@
 import { Reveal, RevealItem } from "@/components/ui/reveal";
 import { ACCOMMODATIONS } from "@/constants/Modules/Home/accommodations";
 import { HotelCard } from "../HotelCard";
+import { ViewAllCard } from "../ViewAllCard";
+
+const VIEW_ALL_PREVIEW_COUNT = 3;
+const MAX_VISIBLE_ACCOMMODATIONS = 7;
 
 export function HospedagensSection() {
   return (
@@ -27,11 +31,22 @@ export function HospedagensSection() {
           </RevealItem>
 
           <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {ACCOMMODATIONS.map((accommodation) => (
-              <RevealItem key={accommodation.slug} className="h-full">
-                <HotelCard accommodation={accommodation} />
-              </RevealItem>
-            ))}
+            {ACCOMMODATIONS.slice(0, MAX_VISIBLE_ACCOMMODATIONS).map(
+              (accommodation) => (
+                <RevealItem key={accommodation.slug} className="h-full">
+                  <HotelCard accommodation={accommodation} />
+                </RevealItem>
+              ),
+            )}
+
+            <RevealItem className="h-full">
+              <ViewAllCard
+                href="/hospedagens"
+                previewAccommodations={ACCOMMODATIONS.slice(
+                  -VIEW_ALL_PREVIEW_COUNT,
+                )}
+              />
+            </RevealItem>
           </div>
         </Reveal>
       </div>

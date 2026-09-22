@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Geist } from "next/font/google";
+import { Toaster } from "sonner";
 import { Footer } from "@/components/Footer";
 import { cn } from "@/lib/utils";
 
@@ -18,6 +19,18 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body>
         {children}
         <Footer />
+        <Toaster
+          position="bottom-center"
+          richColors
+          toastOptions={{
+            classNames: {
+              toast:
+                "rounded-2xl! border! border-blue-950/10! bg-white! shadow-lg! font-sans!",
+              title: "text-blue-950! font-semibold!",
+              description: "text-blue-950/60!",
+            },
+          }}
+        />
       </body>
     </html>
   );

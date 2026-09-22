@@ -26,6 +26,7 @@ export function MapHighlight() {
         sizes="100vw"
         className="object-cover"
       />
+      <div className="absolute inset-0 bg-white/60 xl:hidden" />
       <div className="absolute inset-x-0 top-0 h-32 bg-linear-to-b from-white to-transparent md:h-48" />
       <div className="absolute inset-x-0 bottom-0 h-32 bg-linear-to-t from-white to-transparent md:h-48" />
     </motion.div>

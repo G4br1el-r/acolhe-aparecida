@@ -11,6 +11,7 @@ const SHINE_DURATION_IN_SECONDS = 0.8;
 const SHINE_DELAY_IN_SECONDS = 0.2;
 
 const STRIPE_COUNT = 6;
+const STRIPE_OVERLAP_IN_PX = 5;
 const STRIPE_EXIT_DURATION_IN_SECONDS = 0.5;
 const STRIPE_STAGGER_IN_SECONDS = 0.06;
 
@@ -64,7 +65,7 @@ export function SplashScreen({ onReveal, onFinish }: SplashScreenProps) {
             className="absolute inset-x-0 bg-white"
             style={{
               top: `${(index / STRIPE_COUNT) * 100}%`,
-              height: `${100 / STRIPE_COUNT}%`,
+              height: `calc(${100 / STRIPE_COUNT}% + ${STRIPE_OVERLAP_IN_PX}px)`,
             }}
             initial={{ x: 0 }}
             animate={{ x: isExiting && !shouldReduceMotion ? offscreenX : 0 }}
