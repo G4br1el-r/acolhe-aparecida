@@ -1,28 +1,14 @@
 import { describe, expect, it } from "vitest";
-import type { Accommodation } from "@/constants/Modules/Home/accommodations";
+import {
+  ACCOMMODATIONS,
+  type Accommodation,
+} from "@/constants/Modules/Home/accommodations";
 import { filterAccommodationsByProfiles } from "./filter-accommodations";
 
 function buildAccommodation(
-  overrides: Partial<Accommodation> &
-    Pick<Accommodation, "slug" | "suitableFor">,
+  overrides: Pick<Accommodation, "slug" | "suitableFor">,
 ): Accommodation {
-  return {
-    name: "Hospedagem",
-    image: "",
-    distanceFromSanctuary: "400 m do Santuário",
-    walkingMinutes: 5,
-    coordinates: { lat: -22.8672, lng: -45.2256 },
-    mapPosition: { x: 50, y: 50 },
-    pricePerNight: 200,
-    rating: 4.5,
-    reviewCount: 10,
-    amenities: [],
-    maxGuests: 2,
-    roomCount: 1,
-    bedCount: 1,
-    isAccessible: false,
-    ...overrides,
-  };
+  return { ...ACCOMMODATIONS[0], ...overrides };
 }
 
 const ACESSIVEL_COM_IDOSOS = buildAccommodation({

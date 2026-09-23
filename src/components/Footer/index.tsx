@@ -1,19 +1,8 @@
 import { Mail, MapPin, Phone } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { LEGAL_LINKS, NAV_LINKS } from "@/constants/navigation";
 import { InstagramIcon } from "./InstagramIcon";
-
-const NAV_LINKS = [
-  { label: "Hospedagens", href: "/hospedagens" },
-  { label: "Datas e eventos", href: "/eventos" },
-  { label: "Guia de Aparecida", href: "/guia" },
-  { label: "Suporte", href: "/suporte" },
-];
-
-const LEGAL_LINKS = [
-  { label: "Termos de uso", href: "/termos" },
-  { label: "Política de privacidade", href: "/privacidade" },
-];
 
 const CURRENT_YEAR = new Date().getFullYear();
 

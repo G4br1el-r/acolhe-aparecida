@@ -12,6 +12,7 @@ import Link from "next/link";
 import { useRef } from "react";
 import { Reveal, RevealItem } from "@/components/ui/reveal";
 import { ACCOMMODATIONS } from "@/constants/Modules/Home/accommodations";
+import { PLATFORM_STATS } from "@/constants/Modules/Home/platform-stats";
 import { TRAVELER_PROFILES } from "@/constants/Modules/Home/traveler-profiles";
 import { filterAccommodationsByProfiles } from "@/lib/Modules/Home/filter-accommodations";
 import { useTravelerProfileStore } from "@/store/Modules/Home/use-traveler-profile-store";
@@ -88,14 +89,14 @@ export function FechamentoSection() {
               ? `Encontramos ${matchingCount} ${
                   matchingCount === 1 ? "hospedagem" : "hospedagens"
                 } para ${selectedLabels.join(", ").toLowerCase()}.`
-              : "São 47 hospedagens verificadas, todas a poucos minutos do Santuário."}
+              : `São ${PLATFORM_STATS.verifiedPartnerCount} hospedagens verificadas, todas a poucos minutos do Santuário.`}
           </p>
         </RevealItem>
 
         <RevealItem className="mt-8">
           <Link
             href={searchHref}
-            className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-full bg-[#FF5F00] px-7 py-4 text-base font-semibold text-white shadow-md transition-all hover:bg-[#E65500] hover:shadow-lg active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-900 focus-visible:ring-offset-2"
+            className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-full bg-cta px-7 py-4 text-base font-semibold text-white shadow-md transition-all hover:bg-cta-hover hover:shadow-lg active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-900 focus-visible:ring-offset-2"
           >
             {hasSelection ? "Ver essas hospedagens" : "Ver hospedagens"}
             <ArrowRight className="h-5 w-5" />

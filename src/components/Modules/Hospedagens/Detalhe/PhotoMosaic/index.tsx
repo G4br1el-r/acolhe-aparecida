@@ -4,10 +4,8 @@ import { Grip } from "lucide-react";
 import { motion, useReducedMotion, type Variants } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  buildPhotoUrl,
-  type GalleryPhoto,
-} from "@/constants/Modules/Hospedagens/Detalhe/gallery";
+import type { GalleryPhoto } from "@/lib/Modules/Hospedagens/gallery";
+import { buildPhotoUrl } from "@/mocks/Modules/Hospedagens/photos";
 
 const MotionLink = motion.create(Link);
 

@@ -1,29 +1,15 @@
 import { describe, expect, it } from "vitest";
-import type { Accommodation } from "@/constants/Modules/Home/accommodations";
+import {
+  ACCOMMODATIONS,
+  type Accommodation,
+} from "@/constants/Modules/Home/accommodations";
 import {
   buildPreviewAccommodations,
   MAX_PREVIEW_ACCOMMODATIONS,
 } from "./build-preview-accommodations";
 
 function buildAccommodation(slug: string): Accommodation {
-  return {
-    slug,
-    name: `Hospedagem ${slug}`,
-    image: "",
-    distanceFromSanctuary: "400 m do Santuário",
-    walkingMinutes: 5,
-    coordinates: { lat: -22.8672, lng: -45.2256 },
-    mapPosition: { x: 50, y: 50 },
-    pricePerNight: 200,
-    rating: 4.5,
-    reviewCount: 10,
-    amenities: [],
-    maxGuests: 2,
-    roomCount: 1,
-    bedCount: 1,
-    isAccessible: false,
-    suitableFor: [],
-  };
+  return { ...ACCOMMODATIONS[0], slug };
 }
 
 const ALL = Array.from({ length: 30 }, (_, index) =>

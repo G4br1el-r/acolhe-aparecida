@@ -3,22 +3,38 @@ import "./globals.css";
 import { Geist } from "next/font/google";
 import { Toaster } from "sonner";
 import { Footer } from "@/components/Footer";
+import { CompareBar } from "@/components/Modules/Hospedagens/Comparacao/CompareBar";
+import { QueryProvider } from "@/components/Providers/QueryProvider";
 import { cn } from "@/lib/utils";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
+const SITE_URL = "https://acolheraparecida.com.br";
+
 export const metadata: Metadata = {
-  title: "Acolher Aparecida | Sua viagem ao Santuário",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "Acolher Aparecida | Sua viagem ao Santuário",
+    template: "%s",
+  },
   description:
     "Hospedagens para sua fé em Aparecida-SP, com reserva e pagamento 100% pela plataforma.",
+  openGraph: {
+    siteName: "Acolher Aparecida",
+    locale: "pt_BR",
+    type: "website",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="pt-BR" className={cn("font-sans", geist.variable)}>
       <body>
-        {children}
-        <Footer />
+        <QueryProvider>
+          {children}
+          <Footer />
+          <CompareBar />
+        </QueryProvider>
         <Toaster
           position="bottom-center"
           richColors

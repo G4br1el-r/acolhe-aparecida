@@ -2,28 +2,35 @@
 
 import { Heart } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
-import { useState } from "react";
 import { toast } from "sonner";
+import { useIsClient } from "@/hooks/use-is-client";
+import { useFavoritesStore } from "@/store/Modules/Hospedagens/Favoritos/use-favorites-store";
 
 const ICON_SPRING_STIFFNESS = 420;
 const ICON_SPRING_DAMPING = 9;
 
 type SaveButtonProps = {
+  slug: string;
   accommodationName: string;
 };
 
-export function SaveButton({ accommodationName }: SaveButtonProps) {
-  const [isSaved, setIsSaved] = useState(false);
+export function SaveButton({ slug, accommodationName }: SaveButtonProps) {
+  const isClient = useIsClient();
+  const isSaved = useFavoritesStore((state) =>
+    state.favorites.some((favorite) => favorite.slug === slug),
+  );
+  const toggleFavorite = useFavoritesStore((state) => state.toggleFavorite);
   const shouldReduceMotion = useReducedMotion();
 
-  function handleClick() {
-    const next = !isSaved;
-    setIsSaved(next);
+  const isActive = isClient && isSaved;
 
-    if (next) {
-      toast.success("Salvo na sua lista", { description: accommodationName });
+  function handleClick() {
+    const added = toggleFavorite(slug);
+
+    if (added) {
+      toast.success("Salvo nos favoritos", { description: accommodationName });
     } else {
-      toast("Removido da sua lista", { description: accommodationName });
+      toast("Removido dos favoritos", { description: accommodationName });
     }
   }
 
@@ -31,11 +38,11 @@ export function SaveButton({ accommodationName }: SaveButtonProps) {
     <button
       type="button"
       onClick={handleClick}
-      aria-pressed={isSaved}
+      aria-pressed={isActive}
       className="flex cursor-pointer items-center gap-2 rounded-full px-3 py-2 text-sm font-medium text-blue-950 underline-offset-4 transition-colors hover:bg-blue-950/5 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-900"
     >
       <motion.span
-        key={isSaved ? "filled" : "empty"}
+        key={isActive ? "filled" : "empty"}
         initial={shouldReduceMotion ? false : { scale: 0.6, rotate: -20 }}
         animate={{ scale: 1, rotate: 0 }}
         transition={
@@ -50,10 +57,10 @@ export function SaveButton({ accommodationName }: SaveButtonProps) {
         className="flex"
       >
         <Heart
-          className={`h-4 w-4 ${isSaved ? "fill-blue-900 text-blue-900" : ""}`}
+          className={`h-4 w-4 ${isActive ? "fill-blue-900 text-blue-900" : ""}`}
         />
       </motion.span>
-      {isSaved ? "Salvo" : "Salvar"}
+      {isActive ? "Salvo" : "Salvar"}
     </button>
   );
 }

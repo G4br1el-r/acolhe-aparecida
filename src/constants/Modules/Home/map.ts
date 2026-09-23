@@ -3,16 +3,31 @@ export const SANCTUARY_COORDINATES = {
   lng: -45.2256,
 } as const;
 
+export const BASILICA_VELHA_COORDINATES = {
+  lat: -22.8598,
+  lng: -45.2287,
+} as const;
+
+export const PASSARELA_DA_FE_COORDINATES = {
+  lat: -22.8638,
+  lng: -45.2274,
+} as const;
+
+export const RODOVIARIA_COORDINATES = {
+  lat: -22.8712,
+  lng: -45.2301,
+} as const;
+
 export const APARECIDA_LANDMARKS = [
   {
     id: "basilica-velha",
     name: "Basílica Velha",
-    coordinates: { lat: -22.8598, lng: -45.2287 },
+    coordinates: BASILICA_VELHA_COORDINATES,
   },
   {
     id: "rodoviaria",
     name: "Rodoviária",
-    coordinates: { lat: -22.8712, lng: -45.2301 },
+    coordinates: RODOVIARIA_COORDINATES,
   },
 ] as const;
 

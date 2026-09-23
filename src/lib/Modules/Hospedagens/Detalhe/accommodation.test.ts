@@ -12,20 +12,14 @@ describe("findAccommodationBySlug", () => {
     expect(accommodation?.name).toBe("Hotel Rainha do Brasil");
   });
 
-  it("encontra a hospedagem em destaque no mapa", () => {
-    const accommodation = findAccommodationBySlug("conforto-para-toda-familia");
-
-    expect(accommodation?.name).toBe("Conforto para toda a família");
-  });
-
   it("retorna undefined para slug inexistente", () => {
     expect(findAccommodationBySlug("pousada-que-nao-existe")).toBeUndefined();
   });
 });
 
 describe("getAllAccommodationSlugs", () => {
-  it("inclui todas as hospedagens da listagem mais a do mapa", () => {
-    expect(getAllAccommodationSlugs()).toHaveLength(ACCOMMODATIONS.length + 1);
+  it("inclui todas as hospedagens", () => {
+    expect(getAllAccommodationSlugs()).toHaveLength(ACCOMMODATIONS.length);
   });
 
   it("não possui slugs duplicados", () => {

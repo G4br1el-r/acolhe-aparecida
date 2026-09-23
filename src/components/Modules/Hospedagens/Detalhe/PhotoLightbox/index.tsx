@@ -9,10 +9,8 @@ import "yet-another-react-lightbox/styles.css";
 import "yet-another-react-lightbox/plugins/captions.css";
 import "yet-another-react-lightbox/plugins/counter.css";
 import "yet-another-react-lightbox/plugins/thumbnails.css";
-import {
-  buildPhotoUrl,
-  type GalleryPhoto,
-} from "@/constants/Modules/Hospedagens/Detalhe/gallery";
+import type { GalleryPhoto } from "@/lib/Modules/Hospedagens/gallery";
+import { buildPhotoUrl } from "@/mocks/Modules/Hospedagens/photos";
 
 const LIGHTBOX_PHOTO_WIDTH_IN_PX = 2000;
 const THUMBNAIL_WIDTH_IN_PX = 140;

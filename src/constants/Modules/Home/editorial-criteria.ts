@@ -23,18 +23,21 @@ export const EDITORIAL_CRITERIA: EditorialCriterion[] = [
     title: "Para grupos e romarias",
     description: `A partir de ${GROUP_CAPACITY_THRESHOLD} pessoas, com espaço para van ou ônibus.`,
     matches: (accommodation) =>
-      accommodation.maxGuests >= GROUP_CAPACITY_THRESHOLD,
+      accommodation.totalCapacity >= GROUP_CAPACITY_THRESHOLD &&
+      (accommodation.parking.includes("van") ||
+        accommodation.parking.includes("onibus")),
   },
   {
     id: "acessibilidade-verificada",
     title: "Acessibilidade verificada",
     description: "Entrada, banheiro e circulação conferidos pela nossa equipe.",
-    matches: (accommodation) => accommodation.isAccessible,
+    matches: (accommodation) =>
+      accommodation.badges.includes("acessibilidade-verificada"),
   },
   {
     id: "com-cafe-da-manha",
     title: "Com café da manhã incluso",
     description: "Primeira refeição resolvida antes da missa.",
-    matches: (accommodation) => accommodation.amenities.includes("breakfast"),
+    matches: (accommodation) => accommodation.meals.includes("cafe"),
   },
 ];

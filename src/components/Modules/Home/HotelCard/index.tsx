@@ -4,6 +4,7 @@ import { Accessibility, MapPin, Star } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
+import { FavoriteButton } from "@/components/Modules/Hospedagens/Favoritos/FavoriteButton";
 import type { Accommodation } from "@/constants/Modules/Home/accommodations";
 import {
   AMENITIES,
@@ -11,7 +12,6 @@ import {
   ROOM_CAPACITY_ICON,
   ROOM_COUNT_ICON,
 } from "@/constants/Modules/Home/amenities";
-import { FavoriteButton } from "./FavoriteButton";
 
 const HOVER_LIFT_IN_PX = -4;
 const TAP_SCALE = 0.99;
@@ -76,7 +76,8 @@ export function HotelCard({ accommodation, variant = "lg" }: HotelCardProps) {
 
         <div className="absolute right-2 top-2 z-30">
           <FavoriteButton
-            isCompact={isCompact}
+            slug={accommodation.slug}
+            size={isCompact ? "sm" : "md"}
             accommodationName={accommodation.name}
           />
         </div>

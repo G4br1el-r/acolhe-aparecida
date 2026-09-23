@@ -3,10 +3,8 @@
 import { motion, useReducedMotion, type Variants } from "motion/react";
 import Image from "next/image";
 import { useState } from "react";
-import {
-  buildPhotoUrl,
-  type GalleryPhoto,
-} from "@/constants/Modules/Hospedagens/Detalhe/gallery";
+import type { GalleryPhoto } from "@/lib/Modules/Hospedagens/gallery";
+import { buildPhotoUrl } from "@/mocks/Modules/Hospedagens/photos";
 import { PhotoLightbox } from "../../Detalhe/PhotoLightbox";
 
 const TILE_STAGGER_IN_SECONDS = 0.05;

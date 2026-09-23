@@ -4,11 +4,11 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Header } from "@/components/Header";
 import { GalleryMosaic } from "@/components/Modules/Hospedagens/Fotos/GalleryMosaic";
-import { getGalleryPhotos } from "@/constants/Modules/Hospedagens/Detalhe/gallery";
 import {
   findAccommodationBySlug,
   getAllAccommodationSlugs,
 } from "@/lib/Modules/Hospedagens/Detalhe/accommodation";
+import { buildGallery } from "@/lib/Modules/Hospedagens/gallery";
 
 type FotosPageProps = {
   params: Promise<{ slug: string }>;
@@ -39,7 +39,7 @@ export default async function HospedagemFotosPage({ params }: FotosPageProps) {
     notFound();
   }
 
-  const photos = getGalleryPhotos(slug);
+  const photos = buildGallery(accommodation);
 
   return (
     <>

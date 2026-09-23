@@ -2,7 +2,9 @@
 
 import { MapPin, Star } from "lucide-react";
 import { motion, useReducedMotion, type Variants } from "motion/react";
-import type { Accommodation } from "@/constants/Modules/Home/accommodations";
+import type { Accommodation } from "@/@types/Modules/Hospedagens/accommodation";
+import { CompareToggle } from "@/components/Modules/Hospedagens/Comparacao/CompareToggle";
+import { ACCOMMODATION_TYPE_LABELS } from "@/constants/Modules/Hospedagens/features";
 import { SaveButton } from "../SaveButton";
 import { ShareButton } from "../ShareButton";
 
@@ -46,9 +48,15 @@ export function DetalheHeading({ accommodation }: DetalheHeadingProps) {
       className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between"
     >
       <div className="min-w-0">
+        <motion.p
+          variants={itemVariants}
+          className="text-xs font-semibold uppercase tracking-wide text-blue-900/60"
+        >
+          {ACCOMMODATION_TYPE_LABELS[accommodation.type]}
+        </motion.p>
         <motion.h1
           variants={itemVariants}
-          className="text-2xl font-semibold tracking-tight text-blue-950 sm:text-3xl md:text-4xl"
+          className="mt-1 text-2xl font-semibold tracking-tight text-blue-950 sm:text-3xl md:text-4xl"
         >
           {accommodation.name}
         </motion.h1>
@@ -58,8 +66,13 @@ export function DetalheHeading({ accommodation }: DetalheHeadingProps) {
           className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-blue-950/70"
         >
           <span className="flex items-center gap-1.5 font-medium text-amber-700">
-            <Star className="h-4 w-4 fill-amber-500 text-amber-500" />
-            {accommodation.rating.toFixed(1).replace(".", ",")}
+            <Star
+              className="h-4 w-4 fill-amber-500 text-amber-500"
+              aria-hidden
+            />
+            {accommodation.rating.toLocaleString("pt-BR", {
+              minimumFractionDigits: 1,
+            })}
             <span className="font-normal text-amber-700/70">
               ({accommodation.reviewCount} avaliações)
             </span>
@@ -70,7 +83,7 @@ export function DetalheHeading({ accommodation }: DetalheHeadingProps) {
           </span>
 
           <span className="flex items-center gap-1.5">
-            <MapPin className="h-4 w-4 text-blue-900/70" />
+            <MapPin className="h-4 w-4 text-blue-900/70" aria-hidden />
             {accommodation.distanceFromSanctuary}
           </span>
 
@@ -78,16 +91,25 @@ export function DetalheHeading({ accommodation }: DetalheHeadingProps) {
             ·
           </span>
 
-          <span>Aparecida, SP</span>
+          <span>{accommodation.address.neighborhood}, Aparecida</span>
         </motion.div>
       </div>
 
       <motion.div
         variants={itemVariants}
-        className="-ml-3 flex shrink-0 items-center gap-1 sm:ml-0"
+        className="-ml-3 flex shrink-0 flex-wrap items-center gap-1 sm:ml-0"
       >
         <ShareButton title={accommodation.name} />
-        <SaveButton accommodationName={accommodation.name} />
+        <SaveButton
+          slug={accommodation.slug}
+          accommodationName={accommodation.name}
+        />
+        <CompareToggle
+          slug={accommodation.slug}
+          accommodationName={accommodation.name}
+          variant="text"
+          className="px-3 py-2 text-sm"
+        />
       </motion.div>
     </motion.div>
   );

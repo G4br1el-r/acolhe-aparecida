@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { Header } from "@/components/Header";
+import { SearchBar } from "@/components/Modules/Hospedagens/Busca/SearchBar";
 import { Reveal, RevealItem } from "@/components/ui/reveal";
 import { HeroBackdrop } from "./HeroBackdrop";
 import { LiveStatsLine } from "./LiveStatsLine";
-import { SearchBar } from "./SearchBar";
 import { WaveDivider } from "./WaveDivider";
 import { WaveRevealTitle } from "./WaveRevealTitle";
 

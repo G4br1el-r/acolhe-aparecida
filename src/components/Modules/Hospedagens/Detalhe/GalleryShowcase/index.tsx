@@ -1,6 +1,6 @@
 import { Grip } from "lucide-react";
 import Link from "next/link";
-import type { GalleryPhoto } from "@/constants/Modules/Hospedagens/Detalhe/gallery";
+import type { GalleryPhoto } from "@/lib/Modules/Hospedagens/gallery";
 import { PhotoMosaic } from "../PhotoMosaic";
 
 type GalleryShowcaseProps = {
