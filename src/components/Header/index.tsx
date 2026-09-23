@@ -47,12 +47,8 @@ export function Header({ isReady = true, isSolid = false }: HeaderProps) {
         delay: shouldReduceMotion ? 0 : ENTRANCE_DELAY_IN_SECONDS,
         ease: "easeOut",
       }}
-      className={`fixed inset-x-0 top-0 z-50 flex items-center justify-end px-6 py-5 backdrop-blur-sm transition-colors duration-300 md:px-10 ${
-        isSolid
-          ? "bg-white/90 shadow-sm"
-          : isScrolled
-            ? "bg-white/70 shadow-sm"
-            : "bg-transparent"
+      className={`fixed inset-x-0 top-0 z-50 flex items-center justify-end px-6 py-5 transition-all duration-300 md:px-10 ${
+        isScrolled || isSolid ? "backdrop-blur-md" : ""
       }`}
     >
       <Link

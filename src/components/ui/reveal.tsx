@@ -7,8 +7,8 @@ const STAGGER_DELAY_IN_SECONDS = 0.08;
 const INITIAL_DELAY_IN_SECONDS = 0.05;
 const CHILD_DURATION_IN_SECONDS = 0.35;
 const CHILD_OFFSET_IN_PX = 16;
-const VIEWPORT_MARGIN = "-15% 0px";
-const VIEWPORT_AMOUNT = 0.3;
+const VIEWPORT_MARGIN = "-12% 0px -12% 0px";
+const VIEWPORT_AMOUNT: number | "some" | "all" = "some";
 
 type RevealProps = {
   children: ReactNode;
@@ -80,8 +80,6 @@ export function Reveal({
   );
 }
 
-const REVEAL_ITEM_WILL_CHANGE = "transform, opacity";
-
 export function RevealItem({ children, className }: RevealItemProps) {
   const shouldReduceMotion = useReducedMotion();
 
@@ -101,11 +99,7 @@ export function RevealItem({ children, className }: RevealItemProps) {
   };
 
   return (
-    <motion.div
-      className={className}
-      variants={itemVariants}
-      style={{ willChange: REVEAL_ITEM_WILL_CHANGE }}
-    >
+    <motion.div className={className} variants={itemVariants}>
       {children}
     </motion.div>
   );

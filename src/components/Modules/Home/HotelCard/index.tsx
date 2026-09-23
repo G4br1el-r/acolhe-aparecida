@@ -13,11 +13,11 @@ import {
 } from "@/constants/Modules/Home/amenities";
 import { FavoriteButton } from "./FavoriteButton";
 
-const HOVER_SCALE = 1.05;
-const TAP_SCALE = 0.97;
+const HOVER_LIFT_IN_PX = -4;
+const TAP_SCALE = 0.99;
 const TAP_SPRING_STIFFNESS = 400;
 const TAP_SPRING_DAMPING = 28;
-const IMAGE_HOVER_SCALE = 1.08;
+const IMAGE_HOVER_SCALE = 1.06;
 const IMAGE_HOVER_DURATION_IN_SECONDS = 0.5;
 
 type HotelCardProps = {
@@ -33,15 +33,14 @@ export function HotelCard({ accommodation, variant = "lg" }: HotelCardProps) {
 
   return (
     <motion.div
-      whileHover={{ scale: shouldReduceMotion ? 1 : HOVER_SCALE }}
+      whileHover={{ y: shouldReduceMotion ? 0 : HOVER_LIFT_IN_PX }}
       whileTap={{ scale: shouldReduceMotion ? 1 : TAP_SCALE }}
       transition={{
         type: "spring",
         stiffness: TAP_SPRING_STIFFNESS,
         damping: TAP_SPRING_DAMPING,
       }}
-      style={{ willChange: "transform" }}
-      className={`group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl bg-white shadow-lg ring-1 ring-blue-950/5 transition-shadow duration-300 hover:shadow-2xl focus-within:ring-2 focus-within:ring-blue-900 ${
+      className={`group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-blue-950/8 transition-shadow duration-300 hover:shadow-md focus-within:ring-2 focus-within:ring-blue-900 ${
         isCompact ? "w-64" : "h-full w-full"
       }`}
     >

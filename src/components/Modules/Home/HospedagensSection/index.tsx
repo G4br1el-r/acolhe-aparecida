@@ -1,12 +1,24 @@
+"use client";
+
 import { Reveal, RevealItem } from "@/components/ui/reveal";
 import { ACCOMMODATIONS } from "@/constants/Modules/Home/accommodations";
-import { HotelCard } from "../HotelCard";
-import { ViewAllCard } from "../ViewAllCard";
-
-const VIEW_ALL_PREVIEW_COUNT = 3;
-const MAX_VISIBLE_ACCOMMODATIONS = 7;
+import { EDITORIAL_CRITERIA } from "@/constants/Modules/Home/editorial-criteria";
+import { filterAccommodationsByProfiles } from "@/lib/Modules/Home/filter-accommodations";
+import { useTravelerProfileStore } from "@/store/Modules/Home/use-traveler-profile-store";
+import { CriterionRow } from "./CriterionRow";
 
 export function HospedagensSection() {
+  const selectedProfileIds = useTravelerProfileStore(
+    (state) => state.selectedProfileIds,
+  );
+
+  const availableAccommodations = filterAccommodationsByProfiles(
+    ACCOMMODATIONS,
+    selectedProfileIds,
+  );
+
+  const hasSelection = selectedProfileIds.length > 0;
+
   return (
     <section className="bg-white px-6 py-16 md:px-10 md:py-24">
       <div className="mx-auto max-w-7xl">
@@ -18,35 +30,30 @@ export function HospedagensSection() {
           </RevealItem>
 
           <RevealItem className="mt-4">
-            <h2 className="text-4xl font-bold leading-[1.05] text-blue-950 md:text-5xl">
-              Encontre seu lugar em Aparecida
+            <h2 className="max-w-3xl text-4xl font-bold leading-[1.05] text-blue-950 md:text-5xl">
+              Organizadas do jeito que você decide.
             </h2>
           </RevealItem>
 
-          <RevealItem className="mt-4 max-w-2xl">
+          <RevealItem className="mt-6 max-w-2xl">
             <p className="text-base text-blue-950/70 md:text-lg">
-              Hotéis, pousadas e casas de temporada para uma estadia tranquila,
-              perto da sua fé.
+              {hasSelection
+                ? "Estas faixas já consideram o perfil que você escolheu no mapa."
+                : "Cada faixa segue um critério claro, para você comparar sem abrir dez abas."}
             </p>
           </RevealItem>
 
-          <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {ACCOMMODATIONS.slice(0, MAX_VISIBLE_ACCOMMODATIONS).map(
-              (accommodation) => (
-                <RevealItem key={accommodation.slug} className="h-full">
-                  <HotelCard accommodation={accommodation} />
-                </RevealItem>
-              ),
-            )}
-
-            <RevealItem className="h-full">
-              <ViewAllCard
-                href="/hospedagens"
-                previewAccommodations={ACCOMMODATIONS.slice(
-                  -VIEW_ALL_PREVIEW_COUNT,
-                )}
-              />
-            </RevealItem>
+          <div className="mt-12 flex flex-col gap-14">
+            {EDITORIAL_CRITERIA.map((criterion) => (
+              <RevealItem key={criterion.id}>
+                <CriterionRow
+                  criterion={criterion}
+                  accommodations={availableAccommodations.filter(
+                    criterion.matches,
+                  )}
+                />
+              </RevealItem>
+            ))}
           </div>
         </Reveal>
       </div>

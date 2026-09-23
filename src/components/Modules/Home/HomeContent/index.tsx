@@ -1,10 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { CtaSection } from "@/components/Modules/Home/CtaSection";
+import { AvaliacoesSection } from "@/components/Modules/Home/AvaliacoesSection";
+import { ComoFuncionaSection } from "@/components/Modules/Home/ComoFuncionaSection";
+import { DiaEmAparecidaSection } from "@/components/Modules/Home/DiaEmAparecidaSection";
+import { FechamentoSection } from "@/components/Modules/Home/FechamentoSection";
 import { Hero } from "@/components/Modules/Home/Hero";
 import { HospedagensSection } from "@/components/Modules/Home/HospedagensSection";
-import { ProfileSection } from "@/components/Modules/Home/ProfileSection";
+import { MapaSection } from "@/components/Modules/Home/MapaSection";
 import { SplashScreen } from "@/components/Modules/Home/SplashScreen";
 
 export function HomeContent() {
@@ -16,9 +19,12 @@ export function HomeContent() {
         <SplashScreen onFinish={() => setIsSplashVisible(false)} />
       )}
       <Hero isReady={!isSplashVisible} />
-      <ProfileSection />
+      <MapaSection />
       <HospedagensSection />
-      <CtaSection />
+      <DiaEmAparecidaSection />
+      <ComoFuncionaSection />
+      <AvaliacoesSection />
+      <FechamentoSection />
     </>
   );
 }

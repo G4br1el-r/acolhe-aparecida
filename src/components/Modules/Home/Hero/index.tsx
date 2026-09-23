@@ -1,61 +1,74 @@
-import Image from "next/image";
+"use client";
+
+import { useEffect, useState } from "react";
 import { Header } from "@/components/Header";
 import { Reveal, RevealItem } from "@/components/ui/reveal";
+import { HeroBackdrop } from "./HeroBackdrop";
+import { LiveStatsLine } from "./LiveStatsLine";
 import { SearchBar } from "./SearchBar";
-import { TrustBar } from "./TrustBar";
 import { WaveDivider } from "./WaveDivider";
 import { WaveRevealTitle } from "./WaveRevealTitle";
+
+const WAVE_ENTRANCE_DELAY_IN_MS = 450;
 
 type HeroProps = {
   isReady?: boolean;
 };
 
 export function Hero({ isReady = true }: HeroProps) {
+  const [isWaveReady, setIsWaveReady] = useState(false);
+
+  useEffect(() => {
+    if (!isReady) {
+      setIsWaveReady(false);
+      return;
+    }
+
+    const entranceTimeout = setTimeout(
+      () => setIsWaveReady(true),
+      WAVE_ENTRANCE_DELAY_IN_MS,
+    );
+
+    return () => clearTimeout(entranceTimeout);
+  }, [isReady]);
+
   return (
-    <>
-      <section className="relative flex min-h-dvh flex-col overflow-hidden bg-blue-950">
-        <Image
-          src="/background.png"
-          alt="Santuário Nacional de Aparecida ao entardecer"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-center"
-        />
-        <div className="absolute inset-0 z-5 bg-white/50" />
+    <section className="relative flex min-h-dvh flex-col overflow-hidden bg-blue-950">
+      <HeroBackdrop />
 
-        <Header isReady={isReady} />
+      <Header isReady={isReady} />
 
-        <Reveal
-          className="relative z-20 flex flex-1 flex-col"
-          shouldAnimate={isReady}
-        >
-          <div className="flex flex-1 flex-col items-center justify-start px-6 pb-10 pt-24 text-center min-[390px]:justify-center min-[390px]:pb-8 min-[390px]:pt-0">
-            <RevealItem>
-              <h1 className="max-w-6xl text-[clamp(1.625rem,0.85rem+3.875vw,5.5rem)] font-bold leading-[1.05] text-blue-950">
-                <WaveRevealTitle
-                  text="Sua viagem ao Santuário, em boas mãos."
-                  shouldAnimate={isReady}
-                />
-              </h1>
-            </RevealItem>
+      <Reveal
+        className="relative z-20 grid flex-1 grid-rows-[var(--hero-header-space)_1fr_var(--hero-wave-space)] [--hero-header-space:5rem] [--hero-wave-space:2.5rem] md:[--hero-header-space:6rem] md:[--hero-wave-space:4rem]"
+        shouldAnimate={isReady}
+      >
+        <div className="row-start-2 flex flex-col items-center justify-center px-6 text-center">
+          <RevealItem>
+            <h1 className="max-w-6xl text-[clamp(1.625rem,0.85rem+3.875vw,5.5rem)] font-bold leading-[1.05] text-blue-950">
+              <WaveRevealTitle
+                text="Sua viagem ao Santuário, em boas mãos."
+                shouldAnimate={isReady}
+              />
+            </h1>
+          </RevealItem>
 
-            <RevealItem className="mt-2 max-w-lg md:mt-4">
-              <p className="text-sm text-blue-950/70 md:text-lg">
-                Hospedagens para sua fé, com reserva segura e sem complicação.
-              </p>
-            </RevealItem>
+          <RevealItem className="mt-2 max-w-lg md:mt-4">
+            <p className="text-sm text-blue-950/70 md:text-lg">
+              Hospedagens para sua fé, com reserva segura e sem complicação.
+            </p>
+          </RevealItem>
 
-            <RevealItem className="mt-4 w-full max-w-3xl md:mt-10">
-              <SearchBar />
-            </RevealItem>
-          </div>
-        </Reveal>
+          <RevealItem className="mt-4 w-full max-w-3xl md:mt-10">
+            <SearchBar />
+          </RevealItem>
 
-        <WaveDivider />
-      </section>
+          <RevealItem className="mt-5 w-full max-w-3xl md:mt-7">
+            <LiveStatsLine />
+          </RevealItem>
+        </div>
+      </Reveal>
 
-      <TrustBar />
-    </>
+      <WaveDivider shouldAnimate={isWaveReady} />
+    </section>
   );
 }
