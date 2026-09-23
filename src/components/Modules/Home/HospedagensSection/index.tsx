@@ -1,6 +1,6 @@
 "use client";
 
-import { Reveal, RevealItem } from "@/components/ui/reveal";
+import { Reveal, RevealGroup, RevealItem } from "@/components/ui/reveal";
 import { ACCOMMODATIONS } from "@/constants/Modules/Home/accommodations";
 import { EDITORIAL_CRITERIA } from "@/constants/Modules/Home/editorial-criteria";
 import { filterAccommodationsByProfiles } from "@/lib/Modules/Home/filter-accommodations";
@@ -22,7 +22,7 @@ export function HospedagensSection() {
   return (
     <section className="bg-white px-6 py-16 md:px-10 md:py-24">
       <div className="mx-auto max-w-7xl">
-        <Reveal trigger="inView" amount={0.1} margin="0px 0px -5% 0px">
+        <Reveal trigger="inView" amount={0.1}>
           <RevealItem>
             <p className="text-xs font-semibold uppercase tracking-wide text-blue-900/60">
               Hospedagens em Aparecida
@@ -43,7 +43,7 @@ export function HospedagensSection() {
             </p>
           </RevealItem>
 
-          <div className="mt-12 flex flex-col gap-14">
+          <RevealGroup className="mt-12 flex flex-col gap-14">
             {EDITORIAL_CRITERIA.map((criterion) => (
               <RevealItem key={criterion.id}>
                 <CriterionRow
@@ -54,7 +54,7 @@ export function HospedagensSection() {
                 />
               </RevealItem>
             ))}
-          </div>
+          </RevealGroup>
         </Reveal>
       </div>
     </section>

@@ -45,6 +45,9 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+  --content-max-width: 80rem;
+  --content-gutter: 1.5rem;
+  --content-gutter-desktop: 2.5rem;
 }
 
 :root {
@@ -153,5 +156,33 @@
 
   &::-webkit-scrollbar {
     display: none;
+  }
+}
+
+@utility content-gutter-left {
+  padding-left: max(
+    var(--content-gutter),
+    calc((100vw - var(--content-max-width)) / 2)
+  );
+
+  @media (min-width: 48rem) {
+    padding-left: max(
+      var(--content-gutter-desktop),
+      calc((100vw - var(--content-max-width)) / 2)
+    );
+  }
+}
+
+@utility content-gutter-x {
+  padding-inline: max(
+    var(--content-gutter),
+    calc((100vw - var(--content-max-width)) / 2)
+  );
+
+  @media (min-width: 48rem) {
+    padding-inline: max(
+      var(--content-gutter-desktop),
+      calc((100vw - var(--content-max-width)) / 2)
+    );
   }
 }

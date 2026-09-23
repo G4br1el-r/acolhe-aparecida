@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { Reveal, RevealItem } from "@/components/ui/reveal";
+import { Reveal, RevealGroup, RevealItem } from "@/components/ui/reveal";
 import { GUEST_REVIEWS } from "@/constants/Modules/Home/guest-reviews";
 import { PLATFORM_STATS } from "@/constants/Modules/Home/platform-stats";
 import { averageReviewRating } from "@/lib/Modules/Home/average-review-rating";
@@ -28,14 +28,14 @@ export function AvaliacoesSection() {
   return (
     <section className="bg-blue-50/50 px-6 py-16 md:px-10 md:py-24">
       <div className="mx-auto max-w-7xl">
-        <Reveal trigger="inView" amount={0.1} margin="0px 0px -5% 0px">
+        <Reveal trigger="inView" amount={0.1}>
           <RevealItem>
             <p className="text-xs font-semibold uppercase tracking-wide text-blue-900/60">
               Quem já ficou
             </p>
           </RevealItem>
 
-          <div className="mt-4 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
+          <RevealGroup className="mt-4 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
             <RevealItem>
               <h2 className="max-w-2xl text-4xl font-bold leading-[1.05] tracking-tight text-blue-950 md:text-5xl">
                 Avaliações de quem viajou como você.
@@ -55,7 +55,7 @@ export function AvaliacoesSection() {
                 </span>
               </p>
             </RevealItem>
-          </div>
+          </RevealGroup>
 
           <RevealItem className="mt-5 max-w-2xl">
             <p className="text-base text-blue-950/70 md:text-lg">

@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import { AnimatedNumber } from "@/components/ui/animated-number";
-import { Reveal, RevealItem } from "@/components/ui/reveal";
+import { Reveal, RevealGroup, RevealItem } from "@/components/ui/reveal";
 import { ACCOMMODATIONS } from "@/constants/Modules/Home/accommodations";
 import { useMapPinScroll } from "@/hooks/Modules/Home/use-map-pin-scroll";
 import { buildPreviewAccommodations } from "@/lib/Modules/Home/build-preview-accommodations";
@@ -55,7 +55,7 @@ export function MapaSection() {
   return (
     <section ref={sectionRef} className="bg-white px-6 py-16 md:px-10 md:py-24">
       <Reveal trigger="inView" className="mx-auto max-w-7xl">
-        <div className="max-w-2xl">
+        <RevealGroup className="max-w-2xl">
           <RevealItem>
             <p className="text-xs font-semibold uppercase tracking-wide text-blue-900/60">
               Onde você vai ficar
@@ -67,7 +67,7 @@ export function MapaSection() {
               Tudo se mede a partir do Santuário.
             </h2>
           </RevealItem>
-        </div>
+        </RevealGroup>
 
         <RevealItem className="mt-8">
           <ProfileFilterBar />
@@ -87,10 +87,10 @@ export function MapaSection() {
 
         <div
           ref={stageRef}
-          className="mt-8 grid gap-6 lg:h-[calc(100vh-9rem)] lg:grid-cols-[1.15fr_1fr] lg:gap-8"
+          className="mt-8 grid gap-6 lg:grid-cols-[1.15fr_1fr] lg:gap-8"
         >
-          <div className="lg:flex lg:items-start">
-            <div className="aspect-square w-full">
+          <div className="lg:min-h-0">
+            <div className="aspect-square w-full lg:max-h-[calc(100vh-9rem)]">
               <SanctuaryMap
                 accommodations={mapPins}
                 activeSlug={activeSlug}
@@ -100,8 +100,11 @@ export function MapaSection() {
             </div>
           </div>
 
-          <div className="lg:h-full lg:overflow-hidden">
-            <div ref={listRef} className="lg:will-change-transform">
+          <div className="lg:relative lg:h-full lg:overflow-hidden">
+            <div
+              ref={listRef}
+              className="lg:absolute lg:inset-x-0 lg:top-0 lg:will-change-transform"
+            >
               <MapAccommodationList
                 accommodations={previewAccommodations}
                 activeSlug={activeSlug}

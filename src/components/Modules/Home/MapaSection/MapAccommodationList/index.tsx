@@ -7,8 +7,8 @@ import Link from "next/link";
 import { ViewAllCard } from "@/components/Modules/Home/ViewAllCard";
 import type { Accommodation } from "@/constants/Modules/Home/accommodations";
 
-const ITEM_STAGGER_IN_SECONDS = 0.04;
-const ITEM_DURATION_IN_SECONDS = 0.3;
+const ITEM_STAGGER_IN_SECONDS = 0.025;
+const ITEM_DURATION_IN_SECONDS = 0.26;
 const EXIT_DURATION_IN_SECONDS = 0.16;
 const EXIT_SCALE = 0.96;
 const ENTER_OFFSET_IN_PX = 10;
@@ -46,7 +46,7 @@ export function MapAccommodationList({
 
   return (
     <ul className="grid grid-cols-2 gap-3 sm:gap-4">
-      <AnimatePresence initial={false} mode="popLayout">
+      <AnimatePresence mode="popLayout">
         {accommodations.map((accommodation, index) => {
           const isActive = activeSlug === accommodation.slug;
 

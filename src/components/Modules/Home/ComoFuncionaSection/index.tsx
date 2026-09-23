@@ -1,6 +1,6 @@
 "use client";
 
-import { Reveal, RevealItem } from "@/components/ui/reveal";
+import { Reveal, RevealGroup, RevealItem } from "@/components/ui/reveal";
 import { BOOKING_STEPS } from "@/constants/Modules/Home/booking-steps";
 import { PLATFORM_STATS } from "@/constants/Modules/Home/platform-stats";
 import { useActiveStep } from "@/hooks/Modules/Home/use-active-step";
@@ -26,7 +26,7 @@ export function ComoFuncionaSection() {
       />
 
       <div className="relative mx-auto max-w-7xl px-6 py-20 md:px-10 md:py-28">
-        <Reveal trigger="inView" amount={0.1} margin="0px 0px -5% 0px">
+        <Reveal trigger="inView" amount={0.1}>
           <RevealItem>
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/45">
               Como a reserva funciona aqui
@@ -58,7 +58,7 @@ export function ComoFuncionaSection() {
               />
             </div>
 
-            <div className="flex flex-col gap-14 lg:gap-40 lg:pb-[35vh]">
+            <RevealGroup className="flex flex-col gap-14 lg:gap-40 lg:pb-[35vh]">
               {BOOKING_STEPS.map((step, index) => (
                 <div key={step.id} ref={registerStep(index)}>
                   <RevealItem>
@@ -70,7 +70,7 @@ export function ComoFuncionaSection() {
                   </RevealItem>
                 </div>
               ))}
-            </div>
+            </RevealGroup>
           </div>
 
           <RevealItem className="mt-20">

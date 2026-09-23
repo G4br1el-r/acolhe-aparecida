@@ -6,6 +6,10 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
 import { Reveal, RevealItem } from "@/components/ui/reveal";
 import { DAY_MOMENTS } from "@/constants/Modules/Home/day-moments";
+import {
+  horizontalScrollDistance,
+  trackFullWidth,
+} from "@/lib/Modules/Home/track-full-width";
 import { MomentPanel } from "./MomentPanel";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -43,7 +47,10 @@ export function DiaEmAparecidaSection() {
           if (!track || !viewport || !pin) return;
 
           const getScrollDistance = () =>
-            Math.max(track.scrollWidth - viewport.clientWidth, 0);
+            horizontalScrollDistance(
+              trackFullWidth(track),
+              viewport.clientWidth,
+            );
 
           const timeline = gsap.timeline({
             scrollTrigger: {
@@ -80,7 +87,7 @@ export function DiaEmAparecidaSection() {
     <section ref={sectionRef} className="bg-white pb-16 md:pb-24">
       <Reveal
         trigger="inView"
-        className="mx-auto max-w-7xl px-6 pt-16 md:px-10 md:pt-24"
+        className="content-gutter-x pt-16 md:pt-24 lg:pb-4"
       >
         <RevealItem>
           <p className="text-xs font-semibold uppercase tracking-wide text-blue-900/60">
@@ -117,19 +124,19 @@ export function DiaEmAparecidaSection() {
 
       <div
         ref={pinRef}
-        className="hidden h-dvh flex-col justify-center gap-8 overflow-hidden lg:flex"
+        className="hidden h-dvh flex-col justify-center gap-6 overflow-hidden lg:flex"
       >
         <div ref={viewportRef} className="w-full overflow-hidden">
-          <div ref={trackRef} className="flex w-max gap-6 px-[8vw]">
+          <div ref={trackRef} className="content-gutter-x flex w-max gap-6">
             {DAY_MOMENTS.map((moment, index) => (
-              <div key={moment.id} className="h-[64vh] w-[58vw] shrink-0">
+              <div key={moment.id} className="h-[78vh] w-[46vw] shrink-0">
                 <MomentPanel moment={moment} isPriority={index === 0} />
               </div>
             ))}
           </div>
         </div>
 
-        <div className="mx-auto flex w-full max-w-7xl items-center gap-4 px-10">
+        <div className="content-gutter-x flex w-full items-center gap-4">
           <span className="text-xs font-medium text-blue-950/50">
             {DAY_MOMENTS[0].time}
           </span>
