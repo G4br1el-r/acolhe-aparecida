@@ -5,6 +5,7 @@ import Link from "next/link";
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -66,12 +67,14 @@ export function UserMenu({ fullName }: UserMenuProps) {
       </DropdownMenuTrigger>
 
       <DropdownMenuContent align="end" className="w-64 rounded-2xl p-2">
-        <DropdownMenuLabel className="px-3 py-2 text-xs text-blue-950/50">
-          <span className="block truncate text-sm font-semibold text-blue-950">
-            {fullName}
-          </span>
-          Sua conta
-        </DropdownMenuLabel>
+        <DropdownMenuGroup>
+          <DropdownMenuLabel className="px-3 py-2 text-xs text-blue-950/50">
+            <span className="block truncate text-sm font-semibold text-blue-950">
+              {fullName}
+            </span>
+            Sua conta
+          </DropdownMenuLabel>
+        </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem
           render={<Link href="/minha-viagem" />}
